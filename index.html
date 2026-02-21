@@ -15,7 +15,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard Variable', Pretendard, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
         /* 네비게이션 바 */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
@@ -31,12 +31,17 @@
         .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4); }
         .version-info { display: block; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
 
-        /* 이미지 스타일 */
-        .hero-img { width: 100%; max-width: 1000px; margin: 50px auto; display: block; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .feature-img { width: 100%; max-width: 1000px; margin: 60px auto 0; display: block; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        /* 히어로 이미지 컴포지션 스타일 */
+        .hero-image-container { display: flex; justify-content: center; align-items: center; gap: 40px; margin-top: 70px; flex-wrap: wrap; }
+        .hero-img-widget { max-width: 550px; width: 100%; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); border-radius: 16px; }
+        .hero-img-settings { max-width: 320px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-radius: 12px; border: 1px solid #eaeaea; }
+
+        /* 워크플로우 이미지 스타일 */
+        .workflow-gallery { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 50px; }
+        .workflow-gallery img { width: 45%; min-width: 300px; max-width: 450px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); border: 1px solid #555; }
 
         /* 스토리 섹션 */
-        .story-section { max-width: 800px; margin: 0 auto 100px; background: white; padding: 50px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .story-section { max-width: 800px; margin: 80px auto; background: white; padding: 50px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         .story-section h2 { font-size: 2rem; margin-bottom: 20px; color: #1d1d1f; }
         .story-section p { font-size: 1.1rem; color: #555; margin-bottom: 20px; word-break: keep-all; }
         .quote { font-style: italic; font-weight: bold; font-size: 1.2rem; color: var(--primary-color); margin-top: 30px; }
@@ -46,8 +51,7 @@
         .features-header { text-align: center; margin-bottom: 60px; }
         .features-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
         .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s; }
-        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
         .feature-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
         .feature-card p { color: var(--text-muted); line-height: 1.7; }
@@ -64,7 +68,7 @@
         .w-card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
         .w-card ul li::before { content: '👉'; position: absolute; left: 0; top: 2px; font-size: 0.9em; }
 
-        /* 경고 및 후원 섹션 */
+        /* 하단 섹션 */
         .bottom-section { max-width: 800px; margin: 80px auto; padding: 0 20px; text-align: center; }
         .notice-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; text-align: left; border-radius: 8px; margin-bottom: 40px; color: #856404; }
         .sponsor-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px solid #ffe8e8;}
@@ -74,7 +78,8 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            nav { padding: 15px 20px; }
+            .hero-image-container { flex-direction: column; gap: 30px; }
+            .workflow-gallery img { width: 100%; }
         }
     </style>
 </head>
@@ -94,7 +99,10 @@
         <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/releases/latest" class="btn-primary">⬇️ Windows용 무료 다운로드</a>
         <span class="version-info">최신 버전 자동 업데이트 지원 (Windows 10/11 전용)</span>
         
-        <img src="image_6.png" alt="GN-QuickWidget 메인 실행 화면" class="hero-img">
+        <div class="hero-image-container">
+            <img src="1.png" alt="GN-QuickWidget 위젯 바" class="hero-img-widget">
+            <img src="2.png" alt="GN-QuickWidget 설정 화면" class="hero-img-settings">
+        </div>
     </header>
 
     <section class="story-section">
@@ -126,8 +134,6 @@
                 <p>마우스 클릭 없이 지정한 전역 단축키로 버튼을 실행할 수 있습니다. 위젯 바 위에서 휠을 굴려 크기와 페이지를 바로 조절하세요.</p>
             </div>
         </div>
-        
-        <img src="image_7.png" alt="GN-QuickWidget의 다양한 설정 화면" class="feature-img">
     </section>
 
     <section class="workflow-highlight">
@@ -156,7 +162,10 @@
                 </div>
             </div>
 
-            <img src="image_8.png" alt="GN-QuickWidget 워크플로우 설정 예시" class="feature-img" style="box-shadow: none; background: transparent;">
+            <div class="workflow-gallery">
+                <img src="3.png" alt="긴급 회피 모드 설정 스크린샷">
+                <img src="4.png" alt="번역기 설정 스크린샷">
+            </div>
         </div>
     </section>
 
