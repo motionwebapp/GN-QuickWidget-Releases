@@ -31,10 +31,9 @@
         .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4); }
         .version-info { display: block; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
 
-        /* 이미지 플레이스홀더 (스크린샷 영역) */
-        .img-placeholder { background-color: #e5e5ea; border: 2px dashed #c7c7cc; border-radius: 16px; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-weight: bold; margin: 50px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .hero-img { width: 100%; max-width: 900px; height: 500px; }
-        .feature-img { width: 100%; height: 300px; margin-top: 20px;}
+        /* 이미지 스타일 */
+        .hero-img { width: 100%; max-width: 1000px; margin: 50px auto; display: block; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .feature-img { width: 100%; max-width: 1000px; margin: 60px auto 0; display: block; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
         /* 스토리 섹션 */
         .story-section { max-width: 800px; margin: 0 auto 100px; background: white; padding: 50px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
@@ -76,7 +75,6 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             nav { padding: 15px 20px; }
-            .hero-img { height: 300px; }
         }
     </style>
 </head>
@@ -96,9 +94,7 @@
         <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/releases/latest" class="btn-primary">⬇️ Windows용 무료 다운로드</a>
         <span class="version-info">최신 버전 자동 업데이트 지원 (Windows 10/11 전용)</span>
         
-        <div class="img-placeholder hero-img">
-            [메인 스크린샷 800x450 비율 추천]<br>투명도와 배경 이펙트가 적용된 위젯 실행 화면
-        </div>
+        <img src="image_6.png" alt="GN-QuickWidget 메인 실행 화면" class="hero-img">
     </header>
 
     <section class="story-section">
@@ -130,6 +126,8 @@
                 <p>마우스 클릭 없이 지정한 전역 단축키로 버튼을 실행할 수 있습니다. 위젯 바 위에서 휠을 굴려 크기와 페이지를 바로 조절하세요.</p>
             </div>
         </div>
+        
+        <img src="image_7.png" alt="GN-QuickWidget의 다양한 설정 화면" class="feature-img">
     </section>
 
     <section class="workflow-highlight">
@@ -158,9 +156,7 @@
                 </div>
             </div>
 
-            <div class="img-placeholder feature-img" style="background: rgba(255,255,255,0.1); border-color: #555; color: #aaa;">
-                [워크플로우 설정 창 스크린샷 추천]<br>블록이 쌓여있는 모습
-            </div>
+            <img src="image_8.png" alt="GN-QuickWidget 워크플로우 설정 예시" class="feature-img" style="box-shadow: none; background: transparent;">
         </div>
     </section>
 
