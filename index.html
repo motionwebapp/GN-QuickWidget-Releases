@@ -4,33 +4,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GN-QuickWidget - 초간편 데스크탑 위젯</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <style>
-        body { font-family: 'Pretendard', 'Malgun Gothic', sans-serif; text-align: center; padding: 50px; background-color: #f8f9fa; color: #333; }
-        .hero { background: white; padding: 50px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; }
-        h1 { color: #007bff; font-size: 2.5em; }
-        p { font-size: 1.2em; color: #666; line-height: 1.6; }
-        .btn-download { display: inline-block; background-color: #007bff; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-size: 1.2em; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        .btn-download:hover { background-color: #0056b3; }
-        .links { margin-top: 30px; }
-        .links a { color: #007bff; margin: 0 10px; text-decoration: none; font-weight: bold; }
+        :root {
+            --primary-color: #0066ff;
+            --primary-hover: #0052cc;
+            --bg-color: #f8f9fc;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard Variable', Pretendard, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+        /* 네비게이션 바 */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 20px; font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* 히어로 섹션 (최상단 메인) */
+        .hero { text-align: center; padding: 100px 20px 60px; background: linear-gradient(180deg, #eef2ff 0%, var(--bg-color) 100%); }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.2;}
+        .hero p { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 40px; }
+        .btn-primary { display: inline-block; background-color: var(--primary-color); color: white; padding: 18px 40px; font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3); }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4); }
+        .version-info { display: block; margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* 이미지 플레이스홀더 (스크린샷 영역) */
+        .img-placeholder { background-color: #e5e5ea; border: 2px dashed #c7c7cc; border-radius: 16px; display: flex; justify-content: center; align-items: center; color: var(--text-muted); font-weight: bold; margin: 50px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .hero-img { width: 100%; max-width: 900px; height: 500px; }
+        .feature-img { width: 100%; height: 300px; margin-top: 20px;}
+
+        /* 스토리 섹션 */
+        .story-section { max-width: 800px; margin: 0 auto 100px; background: white; padding: 50px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .story-section h2 { font-size: 2rem; margin-bottom: 20px; color: #1d1d1f; }
+        .story-section p { font-size: 1.1rem; color: #555; margin-bottom: 20px; word-break: keep-all; }
+        .quote { font-style: italic; font-weight: bold; font-size: 1.2rem; color: var(--primary-color); margin-top: 30px; }
+
+        /* 주요 기능 섹션 */
+        .features { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
+        .features-header { text-align: center; margin-bottom: 60px; }
+        .features-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { background: white; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+        .feature-card p { color: var(--text-muted); line-height: 1.7; }
+
+        /* 워크플로우 하이라이트 */
+        .workflow-highlight { background-color: #1d1d1f; color: white; padding: 100px 20px; text-align: center; }
+        .workflow-container { max-width: 1000px; margin: 0 auto; }
+        .workflow-container h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .workflow-container p { color: #a1a1a6; font-size: 1.2rem; margin-bottom: 50px; }
+        .workflow-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left;}
+        .w-card { background: #2d2d30; padding: 30px; border-radius: 16px; border: 1px solid #444; }
+        .w-card h4 { font-size: 1.3rem; margin-bottom: 15px; color: #4facfe; }
+        .w-card ul { list-style: none; color: #ccc; }
+        .w-card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .w-card ul li::before { content: '👉'; position: absolute; left: 0; top: 2px; font-size: 0.9em; }
+
+        /* 경고 및 후원 섹션 */
+        .bottom-section { max-width: 800px; margin: 80px auto; padding: 0 20px; text-align: center; }
+        .notice-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; text-align: left; border-radius: 8px; margin-bottom: 40px; color: #856404; }
+        .sponsor-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 2px solid #ffe8e8;}
+        .btn-sponsor { display: inline-block; background-color: #ff5f5f; color: white; padding: 12px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; margin-top: 20px; }
+
+        footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid #eaeaea; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { padding: 15px 20px; }
+            .hero-img { height: 300px; }
+        }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>GN-QuickWidget 그냥퀵위젯</h1>
-        <p>
-            바탕화면에서 언제든 꺼내 쓰는 나만의 초간편 위젯!<br>
-            개발한다더니 그냥개발자k 하고있는 그냥퀵위젯
-        </p>
-        
-        <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/releases/latest" class="btn-download">
-           Windows용 최신 버전 다운로드
-        </a>
 
-        <div class="links">
-            <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/discussions">💬 커뮤니티(게시판)</a>
-            <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases">💻 깃허브 저장소</a>
+    <nav>
+        <a href="#" class="logo">GN-QuickWidget 🚀</a>
+        <div class="nav-links">
+            <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/discussions">커뮤니티(게시판)</a>
+            <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases">GitHub</a>
         </div>
-    </div>
+    </nav>
+
+    <header class="hero">
+        <h1>언제든 빠르게 꺼내 쓰는<br>나만의 데스크탑 위젯</h1>
+        <p>복잡한 설정은 끝. 드래그 앤 드롭으로 1초 만에 등록하고, 강력한 자동화 루틴을 경험하세요.</p>
+        <a href="https://github.com/motionwebapp/GN-QuickWidget-Releases/releases/latest" class="btn-primary">⬇️ Windows용 무료 다운로드</a>
+        <span class="version-info">최신 버전 자동 업데이트 지원 (Windows 10/11 전용)</span>
+        
+        <div class="img-placeholder hero-img">
+            [메인 스크린샷 800x450 비율 추천]<br>투명도와 배경 이펙트가 적용된 위젯 실행 화면
+        </div>
+    </header>
+
+    <section class="story-section">
+        <h2>🤖 100% 바이브 코딩(Vibe Coding)의 산물</h2>
+        <p>"이런 위젯이 있으면 좋겠다"는 생각 하나로, 비개발자가 AI(제미나이)와 대화만으로 기획부터 배포까지 완성했습니다.</p>
+        <p>전문적인 개발 툴이나 복잡한 환경 설정 없이, 오직 질문과 복붙(?)으로 만들어낸 이 즐거운 도전의 결과물이 여러분의 데스크탑 환경에 작은 편안함을 주길 바랍니다.</p>
+        <div class="quote">"그냥 개발 하랬더니 그냥 개발작을 한 '그냥개발자K' 였습니다."</div>
+    </section>
+
+    <section class="features">
+        <div class="features-header">
+            <h2>무엇이 다른가요?</h2>
+            <p style="color: #666; font-size: 1.2rem;">있는 듯 없는 듯, 하지만 필요할 땐 확실하게 돕습니다.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="icon">🖱️</span>
+                <h3>드래그 앤 드롭</h3>
+                <p>바탕화면의 바로가기나 실행 파일을 위젯에 끌어다 놓기만 하세요. 이름과 아이콘이 자동으로 추출되어 1초 만에 등록됩니다.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">👻</span>
+                <h3>투명도 & 배경 이펙트</h3>
+                <p>작업 환경을 방해하지 않게 평소엔 투명하게 스며들고, 찾을 땐 배경 이펙트로 단번에 위치를 파악할 수 있는 섬세한 UI를 제공합니다.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon">⌨️</span>
+                <h3>단축키 완벽 제어</h3>
+                <p>마우스 클릭 없이 지정한 전역 단축키로 버튼을 실행할 수 있습니다. 위젯 바 위에서 휠을 굴려 크기와 페이지를 바로 조절하세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="workflow-highlight">
+        <div class="workflow-container">
+            <h2>버튼 하나로 끝내는 강력한 '자동화 루틴'</h2>
+            <p>단순한 바로가기가 아닙니다. 텍스트 복사, 대기, 단축키 입력 등을 조합해 나만의 매크로를 만드세요.</p>
+            
+            <div class="workflow-cards">
+                <div class="w-card">
+                    <h4>🚨 상사 등장! 긴급 회피 모드</h4>
+                    <ul>
+                        <li>[미디어 제어] 볼륨 즉시 음소거</li>
+                        <li>[시스템 제어] 0.1초 만에 바탕화면 보기</li>
+                        <li>[대기] 0.3초 딜레이</li>
+                        <li>[프로그램 실행] 업무용 엑셀(Excel) 띄우기</li>
+                    </ul>
+                </div>
+                <div class="w-card">
+                    <h4>🌍 드래그 1초 번역기</h4>
+                    <ul>
+                        <li>[키 입력] Ctrl + C (드래그 텍스트 복사)</li>
+                        <li>[웹사이트 열기] 파파고 번역창 열기</li>
+                        <li>[대기] 로딩 1초 대기</li>
+                        <li>[키 입력] Ctrl + V (번역창에 바로 붙여넣기)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="img-placeholder feature-img" style="background: rgba(255,255,255,0.1); border-color: #555; color: #aaa;">
+                [워크플로우 설정 창 스크린샷 추천]<br>블록이 쌓여있는 모습
+            </div>
+        </div>
+    </section>
+
+    <section class="bottom-section">
+        <div class="notice-box">
+            <strong>🚨 설치 시 보안 경고창 안내</strong><br>
+            인디 프로그램 특성상 설치 시 파란색 경고창(SmartScreen)이 뜰 수 있습니다. 바이러스가 아니니 <b>[추가 정보] 👉 [실행]</b>을 눌러주세요. 백신 프로그램에서 차단할 경우 '검사 예외'로 등록하시면 정상 작동합니다.
+        </div>
+
+        <div class="sponsor-box">
+            <h2>☕ 개발자에게 커피 한 잔 후원하기</h2>
+            <p style="margin-top: 10px; color: #666;">GN-QuickWidget이 유용하셨다면 1인 개발자에게 시원한 커피를 사주세요!<br>다음 업데이트를 위한 아주 큰 원동력이 됩니다. 😊</p>
+            <a href="#" class="btn-sponsor">☕ 커피 후원하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 GN-QuickWidget. Created with passion by 그냥개발자K.</p>
+    </footer>
+
 </body>
 </html>
