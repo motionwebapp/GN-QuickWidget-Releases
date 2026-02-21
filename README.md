@@ -2,7 +2,7 @@
 
 > 언제든 빠르게 꺼내 쓰는 나만의 초간편 데스크탑 위젯! ⚡
 
-![버전](https://img.shields.io/badge/version-v1.0.3-blue)
+![버전](https://img.shields.io/badge/version-v1.0.4-blue)
 ![플랫폼](https://img.shields.io/badge/platform-Windows-lightgrey)
 ![빌드](https://img.shields.io/badge/build-Electron-47848F)
 
